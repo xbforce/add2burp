@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+
+# https://github.com/xbforce
+# https://twitter.com/xbforce
+
+if [[ -z $1 ]]; then
+    echo "[*] Send URLs to burpsuite."
+    echo "[*] Usage: $0 urls.txt"
+    exit 0
+fi
+
+
+exit_code=$!
+
+urls=$1
+
+for r in $(cat $1); do
+    curl --silent --max-time 5 --insecure -x 127.0.0.1:8080 $r
+done
+
+wait $exit_code
